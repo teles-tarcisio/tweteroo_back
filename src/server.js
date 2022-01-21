@@ -35,6 +35,13 @@ function latestTenTweets(targetArray) {
     newArray.push(targetArray[i]);
   }
   return newArray;
+
+  /* // >>> SLICE vs SPLICE !!!
+  const testArray = [
+    { id:1, name:"01" }, { id:2, name:"02"}, { id:3, name:"03"}, { id:4, name:"04"}, { id:5, name:"05"}, { id:6, name:"06"}];
+  
+  console.log(testArray.slice(testArray.length -6, testArray.length));
+  */
 }
 
 function getUserAvatar(targetUserName) {
