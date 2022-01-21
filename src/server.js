@@ -5,8 +5,29 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-const usersArray = [];
-const tweetsArray = [];
+const usersArray = [
+  {
+    username: "hedgy",
+    avatar: "https://i.pinimg.com/736x/2d/00/2d/2d002d1e5aa86a0b274c4a9bf8a87b53--bubble-baths-hedge-hog.jpg"
+  },
+  {
+    username: "bobesponja",
+    avatar: "https://avatarfiles.alphacoders.com/833/thumb-1920-83315.png"
+  }
+];
+
+const tweetsArray = [
+  {
+    username: "0000",
+    tweet:"tweet 0000",
+    avatar: "https://image.shutterstock.com/image-photo/black-number-0000-on-white-260nw-2001074579.jpg"
+  },
+  {
+    username: "0001",
+    tweet:"tweet 0001",
+    avatar: "https://i.ytimg.com/vi/HYE6E3MYyAc/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAJagHxrSk7wxUZmr9kGmnK2WbTRg"
+  },
+];
 
 function latestTenTweets(targetArray) {
   const newArray = [];
@@ -16,26 +37,41 @@ function latestTenTweets(targetArray) {
   return newArray;
 }
 
+function getUserAvatar(targetUserName) {
+  const targetUserObj = usersArray.find( user => (
+    user.username === targetUserName )
+  );
+  
+  return targetUserObj.avatar;
+}
+
 server.post('/sign-up', (req, resp) => {
-  console.log(req.body);
+  
   usersArray.push(req.body);
   resp.send('OK');
 });
 
 server.post('/tweets', (req, resp) => {
-  console.log(req.body);
-  tweetsArray.push(req.body);
+  const targetName = req.body.username;
+  const targetAvatar = getUserAvatar(targetName);
+  tweetsArray.push(
+    { username: req.body.username,
+      avatar: targetAvatar,
+      tweet: req.body.tweet} );
   resp.send('OK');
 });
 
 server.get('/tweets', (req, resp) => {
-
-  resp.send('wip');
+  console.log('tweetsArray: ', tweetsArray);
+  resp.send(latestTenTweets(tweetsArray));
 });
 
 const serverPort = 5000;
 server.listen(5000, () => {
-  console.log('server listening on port :' + serverPort);
-  let testArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
-  console.log(latestTenTweets(testArray));
+  console.log(`server listening, http://localhost:${serverPort}`);
 });
+
+
+/*
+  { username: "hedgy", avatar: "https://i.pinimg.com/736x/2d/00/2d/2d002d1e5aa86a0b274c4a9bf8a87b53--bubble-baths-hedge-hog.jpg" };
+  */

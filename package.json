@@ -2,6 +2,7 @@
   "name": "tweteroo_back",
   "type": "module",
   "version": "1.0.0",
+  "repository": "https://github.com/teles-tarcisio/tweteroo_back",
   "description": "project to test creation of a little backend local server, responding to basic get/post requests",
   "main": "server.js",
   "scripts": {
