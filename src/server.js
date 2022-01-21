@@ -36,6 +36,6 @@ server.get('/tweets', (req, resp) => {
 const serverPort = 5000;
 server.listen(5000, () => {
   console.log('server listening on port :' + serverPort);
-  let testArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+  let testArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
   console.log(latestTenTweets(testArray));
 });
