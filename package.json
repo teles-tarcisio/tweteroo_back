@@ -1,0 +1,17 @@
+{
+  "name": "tweteroo_back",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "project to test creation of a little backend local server, responding to basic get/post requests",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon ./src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
+  }
+}
