@@ -97,18 +97,10 @@ const tweetsArray = [
   },
 ];
 
-function latestTenTweets(targetArray) {
-  if (targetArray.length < 10) {
-    return targetArray.reverse();
-  }
-  else {
-    const size = targetArray.length
-    const tempArray = [];
-    for (let i = size - 1; i > size - 11; i--) {
-      tempArray.push(targetArray[i]);
-    }
-    return tempArray;
-  }
+function slicedTenTweets(page) {
+  const head = 0 + 10*(page - 1);
+  const tail = 10 + 10*(page - 1);
+  return (tweetsArray.slice(head, tail).reverse());
 }
 
 function getUserAvatar(targetUserName) {
@@ -155,4 +147,4 @@ function getUserTweets(targetUser, targetArray) {
   return tempArray.reverse();
 }
 
-export { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets };
+export { usersArray, tweetsArray, slicedTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets };

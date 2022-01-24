@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets } from './services.js';
+import { usersArray, tweetsArray, slicedTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets } from './services.js';
 
 const server = express();
 server.use(express.json());
@@ -24,10 +24,21 @@ server.post('/sign-up', (req, resp) => {
   }
 });
 
-server.get('/tweets', (_, resp) => {
-  resp.send(latestTenTweets(tweetsArray));
+server.get('/tweets', (req, resp) => {
+  if (!req.query.hasOwnProperty('page')) {
+    resp.status(200).send(slicedTenTweets(1));
+  }
+  else {
+    const page = parseInt(req.query.page);
+    if(page >= 1) {
+      const slice = slicedTenTweets(page);
+      resp.status(200).send(slice);
+    }
+    else {
+      resp.status(400).send("Informe uma página válida!")
+    }
+  }
 });
-
 
 server.post('/tweets', (req, resp) => {
   if (req.headers.hasOwnProperty('user')) {
