@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData } from './services.js';
+import { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets } from './services.js';
 
 const server = express();
 server.use(express.json());
@@ -48,9 +48,15 @@ server.get('/tweets', ( _, resp) => {
 
 server.get('/tweets/:userName', (req, resp) => {
   const targetUser = req.params.userName;
-  
-  resp.sendStatus(501);
-})
+
+  const userTweets = getUserTweets(targetUser, tweetsArray);
+  if (userTweets.length === 0) {
+    resp.status(400).send(`Usuário ${targetUser} não encontrado.`);
+  }
+  else {
+    resp.status(200).send(userTweets);
+  }
+});
 
 const serverPort = 5000;
 server.listen(5000, () => {

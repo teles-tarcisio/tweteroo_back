@@ -149,8 +149,10 @@ function formatInputData(request) {
 }
 
 function getUserTweets(targetUser, targetArray) {
-  
+  const tempArray = targetArray.filter ( tweet => (
+    tweet.username === targetUser)
+  );    
+  return tempArray.reverse();
 }
 
-
-export { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData };
+export { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData, getUserTweets };
