@@ -34,18 +34,23 @@ server.post('/tweets', (req, resp) => {
       avatar: targetAvatar,
       tweet: validInputData.tweet
     });
-    resp.status(200).send('OK');
+    resp.status(201).send('OK');
   }
   else {
-    console.log('falta tratar erro no post tweet');
-    resp.sendStatus(501);
+    resp.status(400).send("Todos os campos são obrigatórios!");
+    console.log('invalid tweet data!');
   }
-
 });
 
 server.get('/tweets', ( _, resp) => {
   resp.send(latestTenTweets(tweetsArray));
 });
+
+server.get('/tweets/:userName', (req, resp) => {
+  const targetUser = req.params.userName;
+  
+  resp.sendStatus(501);
+})
 
 const serverPort = 5000;
 server.listen(5000, () => {

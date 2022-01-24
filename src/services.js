@@ -148,5 +148,9 @@ function formatInputData(request) {
   return formattedInput;
 }
 
+function getUserTweets(targetUser, targetArray) {
+  
+}
+
 
 export { usersArray, tweetsArray, latestTenTweets, getUserAvatar, checkRequestInput, formatInputData };
