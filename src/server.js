@@ -11,10 +11,10 @@ server.use(cors());
 server.post('/sign-up', (req, resp) => {
   if (checkRequestInput(req)) {
     const validInputData = formatInputData(req);
-    usersArray.push( {
+    usersArray.push({
       username: validInputData.username,
       avatar: validInputData.avatar
-     });
+    });
     resp.status(201).send('OK');
     console.log('SIGNUP: ', usersArray);
   }
@@ -24,12 +24,21 @@ server.post('/sign-up', (req, resp) => {
   }
 });
 
+server.get('/tweets', (_, resp) => {
+  resp.send(latestTenTweets(tweetsArray));
+});
+
+
 server.post('/tweets', (req, resp) => {
+  if (req.headers.hasOwnProperty('user')) {
+    req.body.username = req.headers.user;
+  }
   if (checkRequestInput(req)) {
+
     const validInputData = formatInputData(req);
     const targetAvatar = getUserAvatar(validInputData.username);
 
-    tweetsArray.push( {
+    tweetsArray.push({
       username: validInputData.username,
       avatar: targetAvatar,
       tweet: validInputData.tweet
@@ -40,10 +49,6 @@ server.post('/tweets', (req, resp) => {
     resp.status(400).send("Todos os campos são obrigatórios!");
     console.log('invalid tweet data!');
   }
-});
-
-server.get('/tweets', ( _, resp) => {
-  resp.send(latestTenTweets(tweetsArray));
 });
 
 server.get('/tweets/:userName', (req, resp) => {
