@@ -105,7 +105,7 @@ function latestTenTweets(targetArray) {
     const size = targetArray.length
     const tempArray = [];
     for (let i = size - 1; i > size - 11; i--) {
-      newArray.push(targetArray[i]);
+      tempArray.push(targetArray[i]);
     }
     return tempArray;
   }
